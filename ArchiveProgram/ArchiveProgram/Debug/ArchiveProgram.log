@@ -1,7 +1,1 @@
-﻿  ArchiveProgram.cpp
-d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(276): warning C4244: +=: преобразование "double" в "uchar_byte", возможна потеря данных
-d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(290): warning C4244: +=: преобразование "double" в "uchar_byte", возможна потеря данных
-d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(315): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
-d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(339): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
-d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(356): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
-  ArchiveProgram.vcxproj -> D:\ЛАБЫ\ArchiveProgram\ArchiveProgram\Debug\ArchiveProgram.exe
+﻿  ArchiveProgram.vcxproj -> D:\ЛАБЫ\ArchiveProgram\ArchiveProgram\Debug\ArchiveProgram.exe

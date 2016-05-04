@@ -273,7 +273,7 @@ vector<uchar_byte> compiling_an_array_of_bytes(vector<bool> bin_mass)
 		uchar_byte temp_byte = 0;
 		for (int i = 7; i >= 0; i--)
 		{
-			temp_byte += bin_mass.front()*pow(2, i);
+			temp_byte += bin_mass.front()*((uchar_byte) pow(2, i));
 			bin_mass.erase(bin_mass.begin(), bin_mass.begin()+1);
 		}
 		new_byte_mass.push_back(temp_byte);
@@ -287,7 +287,7 @@ vector<uchar_byte> compiling_an_array_of_bytes(vector<bool> bin_mass)
 			uchar_byte i = 0;
 			while (bin_mass.size() != 0)
 			{
-				temp_byte += bin_mass.back() * pow(2, i);
+				temp_byte += bin_mass.back() * ((uchar_byte) pow(2, i));
 				bin_mass.pop_back();
 				i++;
 			}
@@ -312,7 +312,7 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 
 			for (int j = 1; j < 9;j++)
 			{
-				bool temp = temp_byte % 2;
+				bool temp = ((temp_byte % 2) != 0);
 				temp_bool_mass.push_back(temp);
 				temp_byte /= 2;
 			}
@@ -336,7 +336,7 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 
 			for (int j = 1; j < 9; j++)
 			{
-				bool temp = temp_byte % 2;
+				bool temp = ((temp_byte % 2) != 0);
 				temp_bool_mass.push_back(temp);
 				temp_byte /= 2;
 			}
@@ -353,7 +353,7 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 		byte_mass.pop_back();
 		for (int j = 0; j < counter; j++)
 		{
-			bool temp = temp_byte % 2;
+			bool temp = ((temp_byte % 2) != 0);
 			temp_bool_mass.push_back(temp);
 			temp_byte /= 2;
 		}
