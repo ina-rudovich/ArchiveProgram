@@ -1,3 +1,7 @@
 ﻿  ArchiveProgram.cpp
-d:\лабы\курсач\курсовая\archiveprogram\archiveprogram\archiveprogram.cpp(90): warning C4018: <: несоответствие типов со знаком и без знака
-  ArchiveProgram.vcxproj -> D:\ЛАБЫ\курсач\курсовая\ArchiveProgram\Debug\ArchiveProgram.exe
+d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(276): warning C4244: +=: преобразование "double" в "uchar_byte", возможна потеря данных
+d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(290): warning C4244: +=: преобразование "double" в "uchar_byte", возможна потеря данных
+d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(315): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(339): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+d:\лабы\archiveprogram\archiveprogram\archiveprogram\archiveprogram.cpp(356): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+  ArchiveProgram.vcxproj -> D:\ЛАБЫ\ArchiveProgram\ArchiveProgram\Debug\ArchiveProgram.exe
