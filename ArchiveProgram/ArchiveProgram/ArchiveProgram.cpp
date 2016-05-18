@@ -63,7 +63,6 @@ Node* make_tree_for_decode(map<uchar, vector<bool> > &table);
 void compressing(fstream &myfile, string & file_extention);
 void decompressing(fstream &myfile);
 
-
 int main()
 {
 	setlocale(LC_CTYPE, "rus");
@@ -83,7 +82,7 @@ int main()
 		cout << "Этот файл будет сжат." << endl;
 		compressing(myfile, file_extention);
 	}
-
+	cout << "--------------TIME " << clock() / CLK_TCK << endl;
 	system("pause");
     return 0;
 }
@@ -108,7 +107,6 @@ fstream open_file(string & file_extention)
 			if(s.find_last_of(".") != string::npos)
 				file_extention = s.substr(s.find_last_of("."), s.size() - 1);
 			cout << "Файл открыт" << endl;
-			system("pause");
 			return myfile;
 		}
 	}
@@ -289,11 +287,10 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 	uchar_byte counter;
 	if ((counter = byte_mass.front() ) == 0) /*если все байты "полные"*/
 	{
-		byte_mass.erase(byte_mass.begin(), byte_mass.begin() + 1 );
-		for (size_t i = 0; i < byte_mass.size();)
+		for (size_t i = 1; i < byte_mass.size();i++)
 		{
 			vector<bool> temp_bool_mass;
-			uchar_byte temp_byte = byte_mass.front();
+			uchar_byte temp_byte = byte_mass[i];
 
 			for (int j = 1; j < 9;j++)
 			{
@@ -301,23 +298,22 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 				temp_bool_mass.push_back(temp);
 				temp_byte /= 2;
 			}
-			byte_mass.erase(byte_mass.begin(), byte_mass.begin() + 1);
+			
 
-			for (int j = 1; j < 9; j++)
+			for (int j = 7; j >=0; j--)
 			{
-				bit_mass.push_back(temp_bool_mass.back());
-				temp_bool_mass.pop_back();
+				bit_mass.push_back(temp_bool_mass[j]);
 			}
 		}
 	}
 	else     /*если последний "неполный"*/
 	{
-		byte_mass.erase(byte_mass.begin(), byte_mass.begin() + 1);
-		vector<bool> temp_bool_mass;
-		for (size_t i = 1; i < byte_mass.size();)
-		{
 
-			uchar_byte temp_byte = byte_mass.front();
+		
+		for (size_t i = 1; i < byte_mass.size()-1;i++)
+		{
+			vector<bool> temp_bool_mass;
+			uchar_byte temp_byte = byte_mass[i];
 
 			for (int j = 1; j < 9; j++)
 			{
@@ -325,15 +321,16 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 				temp_bool_mass.push_back(temp);
 				temp_byte /= 2;
 			}
-			byte_mass.erase(byte_mass.begin(), byte_mass.begin() + 1);
 
-			for (int j = 1; j < 9; j++)
+
+			for (int j = 7; j >=0; j--)
 			{
-				bit_mass.push_back(temp_bool_mass.back());
-				temp_bool_mass.pop_back();
+				bit_mass.push_back(temp_bool_mass[j]);
+
 			}
 		}
-
+		
+		vector<bool> temp_bool_mass;
 		uchar_byte temp_byte = byte_mass.front();
 		byte_mass.pop_back();
 		for (int j = 0; j < counter; j++)
@@ -343,10 +340,9 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 			temp_byte /= 2;
 		}
 
-		for (int j = 0; j < counter; j++)
+		for (int j = counter - 1;j>=0; j--)
 		{
-			bit_mass.push_back(temp_bool_mass.back());
-			temp_bool_mass.pop_back();
+			bit_mass.push_back(temp_bool_mass[j]);
 		}
 	}
 	return bit_mass;
@@ -356,20 +352,21 @@ vector<bool> decryption(vector<uchar_byte> byte_mass)
 vector<uchar> byte_mass_recovery(Node* tree_root, vector<bool> bin_mass)
 {
 	vector<uchar> byte_mass;
-	while (bin_mass.size() != 0)
+	size_t i = 0;
+	while (i < bin_mass.size())
 	{
 		Node* root = tree_root;
 		while (!(root->sheet))
 		{
-			if (bin_mass.front() == 0)
+			if (bin_mass[i] == 0)
 				root = root->left;
 			else
 				root = root->right;
-			bin_mass.erase(bin_mass.begin(), bin_mass.begin() + 1);
+			i++;
 		}
 		byte_mass.push_back(root->byte);
 	}
-	cout << "byte_mass --- " << byte_mass.size() << endl;
+
 	return byte_mass;
 }
 
@@ -380,10 +377,8 @@ void add_base_info_for_decode(map<uchar, vector<bool> > table, fstream &myfile,s
 
 	for (size_t i = 0; i < str.size(); i++)
 		myfile << (uchar)str[i];
-	cout << "table size in add... " << table.size() << endl;
-	myfile << (uchar)(table.size()-1);
-	cout << "file-size" <<file_size(myfile) << endl;
 
+	myfile << (uchar)(table.size()-1);
 	map<uchar, short> compressed_tree;
 
 	for (map<uchar, vector<bool> >::iterator i = table.begin(); i != table.end(); i++)
@@ -403,30 +398,24 @@ void add_base_info_for_decode(map<uchar, vector<bool> > table, fstream &myfile,s
 		myfile.write((char*)&(i->first),1);
 		myfile.write((char*)&(i->second), 2);
 	}
-	cout << "file_size === " <<file_size(myfile) << endl;	
 }
 
 /*Получение имени и информации для восстановления*/
 void get_base_info_for_decode(fstream & myfile, map<uchar, vector<bool> > &table, string &file_name)
 {
-	cout << "get_base_info_for_decode" << endl;
-	cout << "file_size === " << file_size(myfile) << endl;
 	uchar str_length ;
 	myfile.read((char*)&str_length, 1);
-	cout << "str_len --- " << (int)str_length << endl;
 	file_name.resize(str_length);
+
 	for (int i = 0; i < str_length; i++)
 	{
 		file_name[i] = myfile.get();
 	}
 
-	cout << file_name << endl;
-
 	uchar table_size;
 	myfile.read((char*)&table_size, 1);
-	cout << "table_size" <<(int) table_size << endl;
-
 	map<uchar, short> compressed_tree;
+
 	for (short i = 0; i <= table_size; i++)
 	{
 		uchar temp_byte;
@@ -435,7 +424,7 @@ void get_base_info_for_decode(fstream & myfile, map<uchar, vector<bool> > &table
 		myfile.read((char*)&temp_value, 2);
 		compressed_tree[temp_byte] = temp_value;
 	}
-	cout << "compressed_tree_size" << compressed_tree.size() << endl;
+
 	for (map<uchar, short> ::iterator i = compressed_tree.begin(); i != compressed_tree.end(); i++)
 	{
 		vector<bool> code;
@@ -507,12 +496,13 @@ void compressing(fstream &myfile, string & file_extention)
 	add_base_info_for_decode(table, huff_file, file_extention);
 	vector<bool> bin_mass = encryption(table, buffer);
 	vector<uchar_byte> new_byte_mass = compiling_an_array_of_bytes(bin_mass);
+	
 	for (size_t i = 0; i < new_byte_mass.size(); i++) {
 		huff_file << new_byte_mass[i];
 	}
+
 	huff_file.close();
 	cout << "Файл успешно сжат." << endl;
-	system("pause");
 }
 
 void decompressing(fstream &huff_file)
@@ -523,31 +513,19 @@ void decompressing(fstream &huff_file)
 	string name;
 	getline(cin, name);
 	get_base_info_for_decode(huff_file, t, file_extention);
-	cout << endl;
-	cout << "t.size =============== " << t.size() << endl;
-	cout << endl;
 	Node *tree = make_tree_for_decode(t);
-	cout << endl;
-	cout << endl << endl;
 	vector<uchar_byte> byte_mass;
 	streamoff size = file_size(huff_file);
-	cout << "file_size = " << size << endl;
-	cout << "position " << file_extention.size() + t.size() * 3 + 1 << endl;
 	huff_file.seekg(file_extention.size() + t.size()*3 + 2, ios::beg);
+
 	for (int i = file_extention.size()+t.size()*3+2; i < size; i++)
 	{
 		byte_mass.push_back(huff_file.get());
 	}
+
 	huff_file.close();
-
-	cout << "byte_mass.size" << byte_mass.size() << endl;
-	system("pause");
-
 	vector<bool> bin_mass_from_decryption = decryption(byte_mass);
-
 	vector<uchar> decipher_mass = byte_mass_recovery(tree, bin_mass_from_decryption);
-	cout << "decipher_mass.size()" << decipher_mass.size()<<endl;
-	
 	fstream myfile("..//..//..//tests//" + name + file_extention, ios::binary | ios::app);
 	for (size_t i = 0; i < decipher_mass.size(); i++) {
 		myfile << decipher_mass[i];
