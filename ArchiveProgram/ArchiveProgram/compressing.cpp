@@ -10,7 +10,7 @@ void compressing(fstream &myfile, fstream &huff_file)
 	root = build_tree(rates, root);
 	vector<bool> code;
 	map < uchar, vector<bool> >table;
-	Association_code_byte(root, table, code);
+	association_code_byte(root, table, code);
 	save_table(rates, huff_file);
 	vector<bool> bin_mass = encryption(table, buffer);
 	vector<uchar> new_byte_mass = compiling_an_array_of_bytes(bin_mass);

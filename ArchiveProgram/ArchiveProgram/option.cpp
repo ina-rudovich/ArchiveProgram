@@ -52,7 +52,8 @@ int option(int argc, char* argv[])
 		cout << "Этот файл будет сжат." << endl;
 		compressing(i_file, o_file);
 	}
-
+	cout << "Размер файла до " <<file_size(i_file) <<" байт"<<endl;
+	cout << "Размер файла после " <<file_size(o_file) << " байт" << endl;
 	i_file.close();
 	o_file.close();
 	return 0;

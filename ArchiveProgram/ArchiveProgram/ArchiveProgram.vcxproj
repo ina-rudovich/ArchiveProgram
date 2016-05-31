@@ -164,6 +164,7 @@
     <ClCompile Include="decruption.cpp" />
     <ClCompile Include="encruption.cpp" />
     <ClCompile Include="file_op.cpp" />
+    <ClCompile Include="node.cpp" />
     <ClCompile Include="option.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -2,19 +2,19 @@
 #include "encruption.h"
 
 /*ѕолучение нового двоичного кода дл€ байта*/
-void Association_code_byte(Node* root, map<uchar, vector<bool> > &table, vector <bool> &code)
+void association_code_byte(Node* root, map<uchar, vector<bool> > &table, vector <bool> &code)
 {
 	if (root->left != NULL)
 	{
 		code.push_back(0);
-		Association_code_byte(root->left, table, code);
+		association_code_byte(root->left, table, code);
 		code.pop_back();
 	}
 
 	if (root->right != NULL)
 	{
 		code.push_back(1);
-		Association_code_byte(root->right, table, code);
+		association_code_byte(root->right, table, code);
 		code.pop_back();
 	}
 
