@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "compressing.h"
 
+/*action for compressing*/
 void compressing(fstream &myfile, fstream &huff_file)
 {
 	vector <uchar> buffer;
@@ -19,6 +20,4 @@ void compressing(fstream &myfile, fstream &huff_file)
 	{
 		huff_file << new_byte_mass[i];
 	}
-
-	cout << "Файл успешно сжат." << endl;
 }

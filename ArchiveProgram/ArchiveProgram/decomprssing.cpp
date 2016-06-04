@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "decompressing.h"
 
+/*action for decompressing*/
 void decompressing(fstream &huff_file, fstream &myfile)
 {
 	map< uchar, int> _rates;
@@ -23,6 +24,4 @@ void decompressing(fstream &huff_file, fstream &myfile)
 	{
 		myfile << decipher_mass[i];
 	}
-
-	cout << "Файл успешно распакован." << endl;
 }

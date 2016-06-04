@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "option.h"
-
+/*choosing mode*/
 int option(int argc, char* argv[])
 {
 	if (argc != 5)
@@ -11,8 +11,9 @@ int option(int argc, char* argv[])
 
 	string i_name;
 	string o_name;
-
-	if (((string)argv[1] == "-i") && ((string)argv[3] == "-o"))
+	/*"-i" for input file
+	  "-o" for output file*/
+	if (((string)argv[1] == "-i") && ((string)argv[3] == "-o")) 
 	{
 		i_name = argv[2];
 		o_name = argv[4];
@@ -41,20 +42,18 @@ int option(int argc, char* argv[])
 	string file_extention = "";
 	if (i_name.find_last_of(".") != string::npos)
 		file_extention = i_name.substr(i_name.find_last_of("."), i_name.size() - 1);
-
+	
 	if (file_extention.compare(".hfmn") == 0)
 	{
-		cout << "Этот файл будет распакован." << endl;
 		decompressing(i_file, o_file);
 	}
 	else
 	{
-		cout << "Этот файл будет сжат." << endl;
 		compressing(i_file, o_file);
 	}
-	cout << "Размер файла до " <<file_size(i_file) <<" байт"<<endl;
-	cout << "Размер файла после " <<file_size(o_file) << " байт" << endl;
+
 	i_file.close();
 	o_file.close();
+	cout << "Done" << endl;
 	return 0;
 }

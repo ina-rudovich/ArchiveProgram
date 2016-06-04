@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "decruption.h"
 
-/*ѕолучение булевого массива дл€ "восстановлени€ файла"*/
+/*getting a boolean array to "restore file"*/
 vector<bool> decryption(vector<uchar> byte_mass)
 {
 	vector<bool> bit_mass;
 	uchar counter;
-	if ((counter = byte_mass.front()) == 0) /*если все байты "полные"*/
+	if ((counter = byte_mass.front()) == 0) /*if all bytes are "full"*/
 	{
 		for (size_t i = 1; i < byte_mass.size(); i++)
 		{
@@ -26,7 +26,7 @@ vector<bool> decryption(vector<uchar> byte_mass)
 			}
 		}
 	}
-	else     /*если последний "неполный"*/
+	else     /*if last byte isn't full*/
 	{
 		for (size_t i = 1; i < byte_mass.size() - 1; i++)
 		{
@@ -67,7 +67,7 @@ vector<bool> decryption(vector<uchar> byte_mass)
 	return bit_mass;
 }
 
-/*ѕолучение первоначальной последовательности байт (обход дерева)*/
+/*getting the original byte sequence */
 vector<uchar> byte_mass_recovery(Node* tree_root, vector<bool> bin_mass)
 {
 	vector<uchar> byte_mass;

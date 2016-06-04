@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "tree_op.h"
 
-/*Подсчет частот*/
+/*counting amount of times that bytes appeared in file*/
 map<uchar, int> frequency_of_occurrences(vector<uchar> &buffer)
 {
 	map<uchar, int> rates;
@@ -14,7 +14,7 @@ map<uchar, int> frequency_of_occurrences(vector<uchar> &buffer)
 	return rates;
 }
 
-/*Построение дерева*/
+/*create tree*/
 Node* build_tree(map<uchar, int> &rates, Node* root)
 {
 	list <Node*> nodes;

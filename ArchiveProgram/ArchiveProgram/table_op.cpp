@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "table_op.h"
 
+/*saving information for decompressing*/
 void save_table(map <uchar, int> table, fstream &myfile)
 {
 	map < uchar, int>::iterator i;
@@ -13,6 +14,7 @@ void save_table(map <uchar, int> table, fstream &myfile)
 	}
 }
 
+/*getting information for decompressing*/
 void get_table(fstream & myfile, map<uchar, int > &table)
 {
 	uchar table_size;

@@ -5,8 +5,8 @@ typedef unsigned char uchar;
 class Node
 {
 public:
-	int weight;
-	uchar byte;
+	int weight;              
+	uchar byte;				 
 	Node *left, *right;
 	bool sheet;
 

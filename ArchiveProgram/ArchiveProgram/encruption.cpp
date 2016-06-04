@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "encruption.h"
 
-/*Получение нового двоичного кода для байта*/
+/*getting a new binary code for byte*/
 void association_code_byte(Node* root, map<uchar, vector<bool> > &table, vector <bool> &code)
 {
 	if (root->left != NULL)
@@ -24,7 +24,7 @@ void association_code_byte(Node* root, map<uchar, vector<bool> > &table, vector 
 	}
 }
 
-/*получение булевого массива для сжатия*/
+/*getting new boolean array*/
 vector<bool> encryption(map<uchar, vector<bool> > &table, vector<uchar> &buffer)
 {
 	vector<bool> bin_mass;
@@ -38,7 +38,7 @@ vector<bool> encryption(map<uchar, vector<bool> > &table, vector<uchar> &buffer)
 	return bin_mass;
 }
 
-/*преобразование булевого массива в массив байт*/
+/*converting boolean array in an array bytes*/
 vector<uchar> compiling_an_array_of_bytes(vector<bool> bin_mass)
 {
 	vector<uchar> new_byte_mass;

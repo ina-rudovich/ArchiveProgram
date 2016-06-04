@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "file_op.h"
 
-/*Размер файла*/
+/*size of file*/
 streamoff file_size(fstream &myfile)
 {
 	streamoff size = 0;
@@ -11,7 +11,7 @@ streamoff file_size(fstream &myfile)
 	return size;
 }
 
-/*Запись байтов файла в массив*/
+/*writing bytes of the file in array*/
 vector<uchar> read_file(fstream &myfile)
 {
 	streamoff size = file_size(myfile);
